@@ -277,6 +277,26 @@ export class RootFlexBox extends FlexBox {
   constructor(width: number, height: number, opts: FlexBoxOptions = {}) {
     super(width, height, opts)
   }
+
+  getLayout(): Record<string, { position: Position; size: Size }> {
+    const layoutMap: Record<string, { position: Position; size: Size }> = {}
+    this._collectLayout(this, layoutMap)
+    return layoutMap
+  }
+
+  private _collectLayout(
+    box: FlexBox,
+    map: Record<string, { position: Position; size: Size }>,
+  ): void {
+    for (const child of box.children) {
+      if (child.id) {
+        map[child.id] = { position: child.position, size: child.size }
+      }
+      if (child instanceof FlexBox) {
+        this._collectLayout(child, map)
+      }
+    }
+  }
 }
 
 // --- Example -------------------------------------------------
