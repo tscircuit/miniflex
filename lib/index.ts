@@ -37,6 +37,10 @@ export interface FlexStyle {
   flexBasis: number
   /** Overrides containerʼs alignItems. */
   alignSelf?: Align | "auto"
+  /** Explicit width for the item. Typically used for cross-axis sizing or fixed-size main axis. */
+  width?: number
+  /** Explicit height for the item. Typically used for cross-axis sizing or fixed-size main axis. */
+  height?: number
 }
 
 const defaultStyle: FlexStyle = {
@@ -44,6 +48,8 @@ const defaultStyle: FlexStyle = {
   flexShrink: 1,
   flexBasis: 0,
   alignSelf: "auto",
+  width: undefined,
+  height: undefined,
 }
 
 // --- Core node ----------------------------------------------
@@ -164,13 +170,17 @@ export class FlexBox extends FlexNode {
         child.style.alignSelf !== "auto"
           ? (child.style.alignSelf as Align)
           : this.alignItems
-      switch (alignSelf) {
-        case "stretch":
-          child.size[crossProp] = containerCross
-          break
-        default:
-          if (child.size[crossProp] === 0)
-            child.size[crossProp] = containerCross
+      
+      const explicitCrossSize = horizontal ? child.style.height : child.style.width
+
+      if (explicitCrossSize !== undefined) {
+        child.size[crossProp] = explicitCrossSize
+      } else if (alignSelf === "stretch") {
+        child.size[crossProp] = containerCross
+      } else {
+        // Item is not stretched and has no explicit cross size.
+        // Its cross size is not changed by alignment; it remains its current value
+        // (e.g., 0 for a FlexElement, or the defined size for a nested FlexBox).
       }
     }
 
