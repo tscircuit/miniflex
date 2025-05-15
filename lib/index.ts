@@ -1,4 +1,4 @@
-// minimal_flexbox.ts – single‑file flexbox engine with direction, gap, nesting & alignment
+// index.ts – single‑file flexbox engine with direction, gap, nesting & alignment
 // -------------------------------------------------------------
 // Public API summary
 //   • new RootFlexBox(width, height, options?)
@@ -9,39 +9,14 @@
 //   • Every element (leaf or container) exposes `.position` & `.size`
 // -------------------------------------------------------------
 
-// --- Geometry ------------------------------------------------
-export interface Size {
-  width: number
-  height: number
-}
-export interface Position {
-  x: number
-  y: number
-}
-
-// --- Flex style ---------------------------------------------
-export type Direction = "row" | "row-reverse" | "column" | "column-reverse"
-export type Align = "flex-start" | "flex-end" | "center" | "stretch"
-export type Justify =
-  | "flex-start"
-  | "flex-end"
-  | "center"
-  | "space-between"
-  | "space-around"
-  | "space-evenly"
-
-export interface FlexStyle {
-  id?: string
-  flexGrow: number
-  flexShrink: number
-  flexBasis: number
-  /** Overrides containerʼs alignItems. */
-  alignSelf?: Align | "auto"
-  /** Explicit width for the item. Typically used for cross-axis sizing or fixed-size main axis. */
-  width?: number
-  /** Explicit height for the item. Typically used for cross-axis sizing or fixed-size main axis. */
-  height?: number
-}
+import type {
+  FlexStyle,
+  Size,
+  Position,
+  Direction,
+  Justify,
+  Align,
+} from "./types"
 
 const defaultStyle: FlexStyle = {
   flexGrow: 0,
@@ -170,8 +145,10 @@ export class FlexBox extends FlexNode {
         child.style.alignSelf !== "auto"
           ? (child.style.alignSelf as Align)
           : this.alignItems
-      
-      const explicitCrossSize = horizontal ? child.style.height : child.style.width
+
+      const explicitCrossSize = horizontal
+        ? child.style.height
+        : child.style.width
 
       if (explicitCrossSize !== undefined) {
         child.size[crossProp] = explicitCrossSize
@@ -309,14 +286,3 @@ export class RootFlexBox extends FlexBox {
     }
   }
 }
-
-// --- Example -------------------------------------------------
-// const root = new RootFlexBox(800, 200, { columnGap: 10, justifyContent: 'space-between' })
-// const a = root.addChild({ flexGrow: 1 })
-// const b = root.addChild({ flexGrow: 2, flexBasis: 100, alignSelf: 'flex-end' })
-// const nested = new RootFlexBox(0, 0, { direction: 'column', rowGap: 5 })
-// nested.addChild({ flexBasis: 50 })
-// nested.addChild({ flexBasis: 50 })
-// root.addChild(nested, { flexGrow: 1 })
-// root.build()
-// console.log(a.position, a.size, nested.children[0].position)
