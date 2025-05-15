@@ -1,4 +1,4 @@
-# miniflex
+# @tscircuit/miniflex
 
 A tiny TypeScript/JavaScript implementation of a minimal, single-file flexbox engine. It supports core flexbox features like direction, gap, justification, alignment, and nesting.
 
@@ -17,7 +17,7 @@ A tiny TypeScript/JavaScript implementation of a minimal, single-file flexbox en
 ## Installation
 
 ```bash
-bun add miniflex
+bun add @tscircuit/miniflex
 ```
 
 ## Usage
@@ -25,7 +25,7 @@ bun add miniflex
 Here's a basic example of how to use `miniflex`:
 
 ```typescript
-import { RootFlexBox, FlexBox } from "miniflex"
+import { RootFlexBox, FlexBox } from "@tscircuit/miniflex"
 
 // Create a root flex container
 const root = new RootFlexBox(800, 200, {
