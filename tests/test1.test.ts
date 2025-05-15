@@ -1,5 +1,6 @@
 import { RootFlexBox } from "../lib/index"
 import { describe, it, expect } from "bun:test"
+import { convertFlexBoxToSvg } from "./fixtures/convertFlexBoxToSvg"
 
 it("should correctly layout a single child", () => {
   // Create a root container
@@ -11,7 +12,7 @@ it("should correctly layout a single child", () => {
   // and no other children, it should take up available space if no basis is set.
   // However, the current implementation resolves flexBasis first.
   // If we give it flexGrow: 1, it should take up the full width.
-  const child = root.addChild({ flexGrow: 1 })
+  const child = root.addChild({ flexGrow: 1, id: "child1" })
 
   // Compute the layout
   root.build()
@@ -24,4 +25,6 @@ it("should correctly layout a single child", () => {
   // The child should be positioned at (0,0)
   expect(child.position.x).toBe(0)
   expect(child.position.y).toBe(0)
+
+  expect(convertFlexBoxToSvg(root)).toMatchSvgSnapshot(import.meta.path)
 })

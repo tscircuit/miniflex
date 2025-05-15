@@ -1,83 +1,43 @@
-import { GraphicsObject } from "graphics-debug"
+import {
+  getSvgFromGraphicsObject,
+  GraphicsObject,
+  Rect,
+  TransformOptions,
+} from "graphics-debug"
+import { RootFlexBox } from "../../lib/index"
 
-/**
+export function convertFlexBoxToSvg(
+  root: RootFlexBox,
+  options?: TransformOptions,
+): string {
+  const layout = root.getLayout()
+  const rects: Rect[] = []
+  console.log(layout)
 
-interface Point {
-    x: number;
-    y: number;
-    color?: string;
-    label?: string;
-    layer?: string;
-    step?: number;
-}
-interface Line {
-    points: {
-        x: number;
-        y: number;
-    }[];
-    strokeWidth?: number;
-    strokeColor?: string;
-    strokeDash?: string | number[];
-    layer?: string;
-    step?: number;
-    label?: string;
-}
-interface Rect {
-    center: {
-        x: number;
-        y: number;
-    };
-    width: number;
-    height: number;
-    fill?: string;
-    stroke?: string;
-    color?: string;
-    layer?: string;
-    step?: number;
-    label?: string;
-}
-interface Circle {
-    center: {
-        x: number;
-        y: number;
-    };
-    radius: number;
-    fill?: string;
-    stroke?: string;
-    layer?: string;
-    step?: number;
-    label?: string;
-}
-interface GraphicsObject {
-    points?: Point[];
-    lines?: Line[];
-    rects?: Rect[];
-    circles?: Circle[];
-    coordinateSystem?: "cartesian" | "screen";
-    title?: string;
-}
-interface Viewbox {
-    minX: number;
-    maxX: number;
-    minY: number;
-    maxY: number;
-}
-interface CenterViewbox {
-    center: {
-        x: number;
-        y: number;
-    };
-    width: number;
-    height: number;
-}
-type TransformOptions = {
-    transform?: transformation_matrix.Matrix;
-    viewbox?: Viewbox | CenterViewbox;
-    padding?: number;
-    yFlip?: boolean;
-    disableLabels?: boolean;
-};
+  for (const id in layout) {
+    const item = layout[id]
+    if (!item) continue
+    rects.push({
+      center: {
+        x: item.position.x + item.size.width / 2,
+        y: item.position.y + item.size.height / 2,
+      },
+      width: item.size.width,
+      height: item.size.height,
+      label: id,
+      fill: "rgba(0,0,0,0.1)",
+      stroke: "black",
+    })
+  }
 
-export type { CenterViewbox, Circle, GraphicsObject, Line, Point, Rect, TransformOptions, Viewbox };
+  const graphicsObject: GraphicsObject = {
+    rects,
+    title: "FlexBox Layout",
+    coordinateSystem: "cartesian",
+  }
 
- */
+  return getSvgFromGraphicsObject(graphicsObject, {
+    backgroundColor: "white",
+    includeTextLabels: true,
+  })
+}
