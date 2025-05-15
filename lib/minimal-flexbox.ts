@@ -16,6 +16,7 @@ import type {
   Direction,
   Justify,
   Align,
+  FlexBoxOptions,
 } from "./types"
 
 const defaultStyle: FlexStyle = {
@@ -50,16 +51,6 @@ export class FlexElement extends FlexNode {
   build(): void {
     /* nothing to recurse into */
   }
-}
-
-// --- Flex container -----------------------------------------
-export interface FlexBoxOptions {
-  id?: string
-  direction?: Direction
-  columnGap?: number
-  rowGap?: number
-  justifyContent?: Justify
-  alignItems?: Align
 }
 
 export class FlexBox extends FlexNode {

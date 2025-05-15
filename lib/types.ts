@@ -30,3 +30,13 @@ export interface FlexStyle {
   /** Explicit height for the item. Typically used for cross-axis sizing or fixed-size main axis. */
   height?: number
 }
+
+// --- Flex container -----------------------------------------
+export interface FlexBoxOptions {
+  id?: string
+  direction?: Direction
+  columnGap?: number
+  rowGap?: number
+  justifyContent?: Justify
+  alignItems?: Align
+}

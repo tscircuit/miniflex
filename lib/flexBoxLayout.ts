@@ -6,7 +6,7 @@ import type {
   Direction,
   Justify,
   Align,
-  FlexBoxOptions, // Added FlexBoxOptions for helper typing
+  FlexBoxOptions,
 } from "./types"
 
 export interface FlexBoxItem extends FlexStyle {
