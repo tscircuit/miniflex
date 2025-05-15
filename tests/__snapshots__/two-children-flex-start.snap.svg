@@ -1,8 +1,14 @@
 <svg width="640" height="640" viewBox="0 0 640 640" xmlns="http://www.w3.org/2000/svg">
   <rect width="100%" height="100%" fill="white" />
-  <polyline data-points="0,0 300,0 300,50 0,50 0,0" data-type="line" points="40,366.6666666666667 600,366.6666666666667 600,273.33333333333337 40,273.33333333333337 40,366.6666666666667" fill="none" stroke="black" stroke-width="1.8666666666666667" />
-  <rect data-type="rect" data-label="" data-x="25" data-y="25" x="40" y="273.33333333333337" width="93.33333333333331" height="93.33333333333331" fill="rgba(0,0,0,0.1)" stroke="black" stroke-width="0.5357142857142857" />
-  <rect data-type="rect" data-label="" data-x="100" data-y="25" x="133.33333333333331" y="273.33333333333337" width="186.66666666666669" height="93.33333333333331" fill="rgba(255,0,0,0.1)" stroke="black" stroke-width="0.5357142857142857" />
+  <g>
+    <polyline data-points="0,0 300,0 300,50 0,50 0,0" data-type="line" data-label="" points="40,366.6666666666667 600,366.6666666666667 600,273.33333333333337 40,273.33333333333337 40,366.6666666666667" fill="none" stroke="black" stroke-width="1.8666666666666667" />
+  </g>
+  <g>
+    <rect data-type="rect" data-label="c1-flex-start" data-x="25" data-y="25" x="40" y="273.33333333333337" width="93.33333333333331" height="93.33333333333331" fill="rgba(0,0,0,0.1)" stroke="black" stroke-width="0.5357142857142857" /><text x="45" y="268.33333333333337" font-family="sans-serif" font-size="12" fill="black">c1-flex-start</text>
+  </g>
+  <g>
+    <rect data-type="rect" data-label="c2-flex-start" data-x="100" data-y="25" x="133.33333333333331" y="273.33333333333337" width="186.66666666666669" height="93.33333333333331" fill="rgba(255,0,0,0.1)" stroke="black" stroke-width="0.5357142857142857" /><text x="138.33333333333331" y="268.33333333333337" font-family="sans-serif" font-size="12" fill="black">c2-flex-start</text>
+  </g>
   <g id="crosshair" style="display: none">
     <line id="crosshair-h" y1="0" y2="640" stroke="#666" stroke-width="0.5" />
     <line id="crosshair-v" x1="0" x2="640" stroke="#666" stroke-width="0.5" /><text id="coordinates" font-family="monospace" font-size="12" fill="#666"></text>
