@@ -1,4 +1,4 @@
-import { RootFlexBox, type Justify } from "../lib/index"
+import { RootFlexBox, type Justify } from "../lib/minimal-flexbox"
 import { it, expect } from "bun:test"
 import { convertFlexBoxToSvg } from "./fixtures/convertFlexBoxToSvg"
 

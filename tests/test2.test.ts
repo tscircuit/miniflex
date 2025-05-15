@@ -1,4 +1,4 @@
-import { RootFlexBox } from "../lib/index"
+import { RootFlexBox } from "../lib/minimal-flexbox"
 import { describe, it, expect } from "bun:test"
 import { convertFlexBoxToSvg } from "./fixtures/convertFlexBoxToSvg"
 

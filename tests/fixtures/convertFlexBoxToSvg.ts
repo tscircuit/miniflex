@@ -5,7 +5,7 @@ import {
   type Rect,
   type TransformOptions,
 } from "graphics-debug"
-import type { RootFlexBox } from "../../lib/index"
+import type { RootFlexBox } from "../../lib/minimal-flexbox"
 
 const COLORS = [
   "rgba(0,0,0,0.1)",

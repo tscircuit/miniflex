@@ -1,4 +1,4 @@
-import { RootFlexBox } from "../lib/index"
+import { RootFlexBox } from "../lib/minimal-flexbox"
 import { it, expect } from "bun:test"
 import { convertFlexBoxToSvg } from "./fixtures/convertFlexBoxToSvg"
 
@@ -35,6 +35,8 @@ it("should correctly layout three children with space-between", () => {
   expect(child3.position.x).toBeCloseTo(c1Basis + 100 + c2Basis + 100) // 50 + 100 + 70 + 100 = 320
 
   expect(
-    convertFlexBoxToSvg(root, { title: "Three Children, justify: space-between" }),
+    convertFlexBoxToSvg(root, {
+      title: "Three Children, justify: space-between",
+    }),
   ).toMatchSvgSnapshot(import.meta.path, "three-children-space-between")
 })

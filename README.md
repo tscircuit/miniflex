@@ -141,6 +141,70 @@ After `build()`, contains the `{ width, height }` of the node.
 
 After `build()`, returns a map where keys are item IDs (or auto-generated IDs) and values are their computed `position` and `size`.
 
+### `flexBoxLayout(parent: FlexBoxItem): Record<string, { position: Position; size: Size }>`
+
+A utility function that takes a tree of `FlexBoxItem` objects, constructs the corresponding `RootFlexBox` and nested `FlexBox` instances, computes the layout, and returns the layout map. This is useful for scenarios where the layout structure is defined declaratively (e.g., from a configuration file or a different data structure).
+
+- `parent`: The root `FlexBoxItem` object describing the entire layout.
+
+#### `FlexBoxItem` Interface
+
+The `flexBoxLayout` function uses objects conforming to the `FlexBoxItem` interface. This interface extends `FlexStyle` and adds an optional `children` array. Additionally, properties typically found in `FlexBoxOptions` (like `direction`, `columnGap`, `rowGap`, `justifyContent`, `alignItems`) can be included directly on a `FlexBoxItem` if it represents a flex container (i.e., it has `children`).
+
+```typescript
+interface FlexBoxItem extends FlexStyle {
+  children?: FlexBoxItem[];
+  // Plus, optionally, FlexBoxOptions if it's a container:
+  // direction?: Direction;
+  // columnGap?: number;
+  // rowGap?: number;
+  // justifyContent?: Justify;
+  // alignItems?: Align;
+}
+```
+
+#### Example using `flexBoxLayout`:
+
+```typescript
+import { flexBoxLayout, type FlexBoxItem } from "@tscircuit/miniflex";
+
+const layoutDefinition: FlexBoxItem = {
+  id: "root",
+  width: 300,
+  height: 200,
+  direction: "column", // FlexBoxOption for the root container
+  alignItems: "stretch",
+  rowGap: 10,
+  children: [
+    {
+      id: "child1",
+      flexGrow: 1, // FlexStyle for child1
+      // This child is also a container
+      direction: "row", // FlexBoxOption for child1 container
+      columnGap: 5,
+      alignItems: "center",
+      children: [
+        { id: "grandchildA", flexBasis: 50, height: 30 }, // FlexStyle for grandchildA
+        { id: "grandchildB", flexGrow: 1, height: 40 },   // FlexStyle for grandchildB
+      ],
+    },
+    {
+      id: "child2",
+      flexBasis: 50, // FlexStyle for child2 (leaf item)
+    },
+  ],
+};
+
+const layoutMap = flexBoxLayout(layoutDefinition);
+
+console.log("\nLayout Map from flexBoxLayout:");
+for (const id in layoutMap) {
+  console.log(
+    `${id}: P(${layoutMap[id].position.x}, ${layoutMap[id].position.y}), S(${layoutMap[id].size.width}, ${layoutMap[id].size.height})`
+  );
+}
+```
+
 ## Building the Project
 
 To build the TypeScript source to JavaScript:

@@ -1,4 +1,4 @@
-import { RootFlexBox, type Align, type FlexStyle } from "../lib/index"
+import { RootFlexBox, type Align, type FlexStyle } from "../lib/minimal-flexbox"
 import { describe, it, expect } from "bun:test"
 import { convertFlexBoxToSvg } from "./fixtures/convertFlexBoxToSvg"
 
@@ -8,7 +8,11 @@ const childBasis = 50 // Main axis size
 
 describe("alignItems and alignSelf", () => {
   // Child 1: explicit height
-  const child1Style: Partial<FlexStyle> = { flexBasis: childBasis, height: 30, id: "c1" }
+  const child1Style: Partial<FlexStyle> = {
+    flexBasis: childBasis,
+    height: 30,
+    id: "c1",
+  }
   // Child 2: no explicit height
   const child2Style: Partial<FlexStyle> = { flexBasis: childBasis, id: "c2" }
 
@@ -47,16 +51,16 @@ describe("alignItems and alignSelf", () => {
     },
     {
       alignItems: "stretch",
-      expectedC1Y: 0, 
+      expectedC1Y: 0,
       expectedC1Height: 30, // Explicit height overrides stretch
-      expectedC2Y: 0, 
+      expectedC2Y: 0,
       expectedC2Height: containerHeight, // Stretched
       idSuffix: "stretch",
     },
     // Test alignSelf overriding alignItems
     {
-      alignItems: "flex-start", 
-      child2AlignSelf: "center", 
+      alignItems: "flex-start",
+      child2AlignSelf: "center",
       expectedC1Y: 0,
       expectedC1Height: 30,
       expectedC2Y: (containerHeight - 0) / 2, // Centered, height 0
@@ -64,18 +68,18 @@ describe("alignItems and alignSelf", () => {
       idSuffix: "alignSelf-center",
     },
     {
-      alignItems: "flex-start", 
-      child2AlignSelf: "stretch", 
+      alignItems: "flex-start",
+      child2AlignSelf: "stretch",
       expectedC1Y: 0,
       expectedC1Height: 30,
-      expectedC2Y: 0, 
+      expectedC2Y: 0,
       expectedC2Height: containerHeight, // Stretched via alignSelf
       idSuffix: "alignSelf-stretch",
     },
     {
       alignItems: "stretch", // Container is stretch
       child2AlignSelf: "flex-start", // Child override, should not stretch
-      expectedC1Y: 0, 
+      expectedC1Y: 0,
       expectedC1Height: 30, // c1 follows container's stretch (but has explicit height)
       expectedC2Y: 0, // flex-start y position
       expectedC2Height: 0, // Not stretched due to alignSelf, no explicit height
@@ -87,7 +91,7 @@ describe("alignItems and alignSelf", () => {
     it(`should correctly layout with alignItems: ${tc.alignItems}${tc.child2AlignSelf ? ` and child2 alignSelf: ${tc.child2AlignSelf}` : ""} (id: ${tc.idSuffix})`, () => {
       const root = new RootFlexBox(containerWidth, containerHeight, {
         alignItems: tc.alignItems,
-        columnGap: 0, 
+        columnGap: 0,
         id: `root-${tc.idSuffix}`,
       })
 
@@ -105,13 +109,13 @@ describe("alignItems and alignSelf", () => {
       // Child 1 assertions
       expect(child1.size.width).toBe(childBasis)
       expect(child1.size.height).toBeCloseTo(tc.expectedC1Height)
-      expect(child1.position.x).toBeCloseTo(0) 
+      expect(child1.position.x).toBeCloseTo(0)
       expect(child1.position.y).toBeCloseTo(tc.expectedC1Y)
 
       // Child 2 assertions
       expect(child2.size.width).toBe(childBasis)
       expect(child2.size.height).toBeCloseTo(tc.expectedC2Height)
-      expect(child2.position.x).toBeCloseTo(childBasis) 
+      expect(child2.position.x).toBeCloseTo(childBasis)
       expect(child2.position.y).toBeCloseTo(tc.expectedC2Y)
 
       expect(

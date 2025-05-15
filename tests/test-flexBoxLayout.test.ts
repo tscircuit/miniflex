@@ -1,6 +1,6 @@
 import { it, expect } from "bun:test"
 import { flexBoxLayout, type FlexBoxItem } from "../lib/flexBoxLayout"
-import type { FlexBoxOptions } from "../lib/index" // For casting FlexBoxOptions
+import type { FlexBoxOptions } from "../lib/minimal-flexbox" // For casting FlexBoxOptions
 import {
   getSvgFromGraphicsObject,
   type GraphicsObject,

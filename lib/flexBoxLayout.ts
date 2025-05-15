@@ -1,4 +1,4 @@
-import { RootFlexBox, FlexBox } from "." // Added FlexBox
+import { RootFlexBox, FlexBox } from "./minimal-flexbox" // Added FlexBox
 import type {
   FlexStyle,
   Size,
