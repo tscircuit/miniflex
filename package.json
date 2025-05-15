@@ -1,0 +1,14 @@
+{
+  "name": "miniflex",
+  "main": "dist/index.js",
+  "type": "module",
+  "scripts": {
+    "build": "tsup ./lib/index.ts --dts --format esm --sourcemap inline"
+  },
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  }
+}
