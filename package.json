@@ -6,7 +6,9 @@
     "build": "tsup ./lib/index.ts --dts --format esm --sourcemap inline"
   },
   "devDependencies": {
-    "@types/bun": "latest"
+    "@types/bun": "latest",
+    "bun-match-svg": "^0.0.11",
+    "graphics-debug": "^0.0.45"
   },
   "peerDependencies": {
     "typescript": "^5"
