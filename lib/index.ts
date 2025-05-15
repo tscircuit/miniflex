@@ -31,6 +31,7 @@ export type Justify =
   | "space-evenly"
 
 export interface FlexStyle {
+  id?: string
   flexGrow: number
   flexShrink: number
   flexBasis: number
@@ -47,6 +48,7 @@ const defaultStyle: FlexStyle = {
 
 // --- Core node ----------------------------------------------
 abstract class FlexNode {
+  id?: string
   /** Computed layout values */
   public readonly size: Size = { width: 0, height: 0 }
   public readonly position: Position = { x: 0, y: 0 }
@@ -55,6 +57,7 @@ abstract class FlexNode {
 
   constructor(style: Partial<FlexStyle> = {}) {
     this.style = { ...defaultStyle, ...style }
+    this.id = style.id
   }
 
   /** Recursively lay out the subtree. */
@@ -70,6 +73,7 @@ export class FlexElement extends FlexNode {
 
 // --- Flex container -----------------------------------------
 export interface FlexBoxOptions {
+  id?: string
   direction?: Direction
   columnGap?: number
   rowGap?: number
@@ -93,6 +97,7 @@ export class FlexBox extends FlexNode {
     // receive their size from the parent during layout).
     this.size.width = width
     this.size.height = height
+    this.id = opts.id
     Object.assign(this, opts)
   }
 
@@ -129,9 +134,9 @@ export class FlexBox extends FlexNode {
     const containerMain = this.size[mainProp]
     const containerCross = this.size[crossProp]
 
-    let totalBasis = 0,
-      totalGrow = 0,
-      totalShrink = 0
+    let totalBasis = 0
+    let totalGrow = 0
+    let totalShrink = 0
 
     for (const child of this.children) {
       totalBasis += child.style.flexBasis
@@ -139,7 +144,7 @@ export class FlexBox extends FlexNode {
       totalShrink += child.style.flexShrink
     }
 
-    let freeSpace = containerMain - totalBasis - gapTotal
+    const freeSpace = containerMain - totalBasis - gapTotal
 
     // 3. Resolve main‑axis sizes -------------------------------------------------
     for (const child of this.children) {
@@ -172,7 +177,7 @@ export class FlexBox extends FlexNode {
     // 4. Justify content (main‑axis positioning) -------------------------------
     const occupied =
       this.children.reduce((sum, c) => sum + c.size[mainProp], 0) + gapTotal
-    let remaining = containerMain - occupied
+    const remaining = containerMain - occupied
 
     let leading = 0
     let between = mainGap
