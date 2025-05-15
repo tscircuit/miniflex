@@ -1,10 +1,28 @@
 import {
   getSvgFromGraphicsObject,
-  GraphicsObject,
-  Rect,
-  TransformOptions,
+  type GraphicsObject,
+  type Rect,
+  type TransformOptions,
 } from "graphics-debug"
-import { RootFlexBox } from "../../lib/index"
+import type { RootFlexBox } from "../../lib/index"
+
+const COLORS = [
+  "rgba(0,0,0,0.1)",
+  "rgba(255,0,0,0.1)", // Red
+  "rgba(0,255,0,0.1)", // Green
+  "rgba(0,0,255,0.1)", // Blue
+  "rgba(255,255,0,0.1)", // Yellow
+  "rgba(255,0,255,0.1)", // Magenta
+  "rgba(0,255,255,0.1)", // Cyan
+  "rgba(255,165,0,0.1)", // Orange
+  "rgba(128,0,128,0.1)", // Purple
+  "rgba(0,128,0,0.1)", // Dark Green
+  "rgba(128,0,0,0.1)", // Maroon
+  "rgba(0,0,128,0.1)", // Navy
+  "rgba(128,128,0,0.1)", // Olive
+  "rgba(139,69,19,0.1)", // Brown
+  "rgba(70,130,180,0.1)", // Steel Blue
+]
 
 export function convertFlexBoxToSvg(
   root: RootFlexBox,
@@ -12,8 +30,8 @@ export function convertFlexBoxToSvg(
 ): string {
   const layout = root.getLayout()
   const rects: Rect[] = []
-  console.log(layout)
 
+  let colorsUsed = 0
   for (const id in layout) {
     const item = layout[id]
     if (!item) continue
@@ -25,7 +43,7 @@ export function convertFlexBoxToSvg(
       width: item.size.width,
       height: item.size.height,
       label: id,
-      fill: "rgba(0,0,0,0.1)",
+      fill: COLORS[colorsUsed++],
       stroke: "black",
     })
   }
