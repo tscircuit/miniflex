@@ -1,6 +1,7 @@
 import {
   getSvgFromGraphicsObject,
   type GraphicsObject,
+  type Line,
   type Rect,
   type TransformOptions,
 } from "graphics-debug"
@@ -26,10 +27,34 @@ const COLORS = [
 
 export function convertFlexBoxToSvg(
   root: RootFlexBox,
-  options?: TransformOptions,
+  opts?: { title?: string },
 ): string {
   const layout = root.getLayout()
   const rects: Rect[] = []
+  const lines: Line[] = []
+
+  // Create a line that goes around the border
+  //   root.size.width
+  lines.push({
+    // Five points
+    points: [
+      // Top left
+      { x: root.position.x, y: root.position.y },
+      // Top right
+      { x: root.position.x + root.size.width, y: root.position.y },
+      // Bottom right
+      {
+        x: root.position.x + root.size.width,
+        y: root.position.y + root.size.height,
+      },
+      // Bottom left
+      { x: root.position.x, y: root.position.y + root.size.height },
+      // Top left
+      { x: root.position.x, y: root.position.y },
+    ],
+    strokeColor: "black",
+    strokeWidth: 1,
+  })
 
   let colorsUsed = 0
   for (const id in layout) {
@@ -43,19 +68,27 @@ export function convertFlexBoxToSvg(
       width: item.size.width,
       height: item.size.height,
       label: id,
-      fill: COLORS[colorsUsed++],
+      fill: COLORS[colorsUsed % COLORS.length], // Ensure colorsUsed wraps around
       stroke: "black",
     })
+    colorsUsed++
   }
 
   const graphicsObject: GraphicsObject = {
+    lines,
     rects,
-    title: "FlexBox Layout",
+    // Use title from transformOptions if provided for the graphics object itself,
+    // otherwise default. getSvgFromGraphicsObject might also use its own options.title.
+    title: opts?.title ?? "FlexBox Layout",
     coordinateSystem: "cartesian",
   }
 
-  return getSvgFromGraphicsObject(graphicsObject, {
+  // Merge default options with provided transformOptions
+  // User-provided options (transformOptions) will override defaults or add new ones.
+  const finalTransformOptions = {
     backgroundColor: "white",
     includeTextLabels: true,
-  })
+  }
+
+  return getSvgFromGraphicsObject(graphicsObject, finalTransformOptions)
 }

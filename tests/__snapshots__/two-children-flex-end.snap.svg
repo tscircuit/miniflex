@@ -1,8 +1,8 @@
 <svg width="640" height="640" viewBox="0 0 640 640" xmlns="http://www.w3.org/2000/svg">
   <rect width="100%" height="100%" fill="white" />
-  <polyline data-points="0,0 200,0 200,100 0,100 0,0" data-type="line" points="40,460 600,460 600,180 40,180 40,460" fill="none" stroke="black" stroke-width="2.8" />
-  <rect data-type="rect" data-label="" data-x="50" data-y="50" x="40" y="180" width="280" height="280" fill="rgba(0,0,0,0.1)" stroke="black" stroke-width="0.35714285714285715" />
-  <rect data-type="rect" data-label="" data-x="150" data-y="50" x="320" y="180" width="280" height="280" fill="rgba(255,0,0,0.1)" stroke="black" stroke-width="0.35714285714285715" />
+  <polyline data-points="0,0 300,0 300,50 0,50 0,0" data-type="line" points="40,366.6666666666667 600,366.6666666666667 600,273.33333333333337 40,273.33333333333337 40,366.6666666666667" fill="none" stroke="black" stroke-width="1.8666666666666667" />
+  <rect data-type="rect" data-label="" data-x="175" data-y="25" x="320" y="273.33333333333337" width="93.33333333333331" height="93.33333333333331" fill="rgba(0,0,0,0.1)" stroke="black" stroke-width="0.5357142857142857" />
+  <rect data-type="rect" data-label="" data-x="250" data-y="25" x="413.3333333333333" y="273.33333333333337" width="186.66666666666669" height="93.33333333333331" fill="rgba(255,0,0,0.1)" stroke="black" stroke-width="0.5357142857142857" />
   <g id="crosshair" style="display: none">
     <line id="crosshair-h" y1="0" y2="640" stroke="#666" stroke-width="0.5" />
     <line id="crosshair-v" x1="0" x2="640" stroke="#666" stroke-width="0.5" /><text id="coordinates" font-family="monospace" font-size="12" fill="#666"></text>
@@ -31,12 +31,12 @@
 
       // Calculate real coordinates using inverse transformation
       const matrix = {
-        "a": 2.8,
+        "a": 1.8666666666666667,
         "c": 0,
         "e": 40,
         "b": 0,
-        "d": -2.8,
-        "f": 460
+        "d": -1.8666666666666667,
+        "f": 366.6666666666667
       };
       // Manually invert and apply the affine transform
       // Since we only use translate and scale, we can directly compute:
