@@ -31,6 +31,7 @@ const defaultStyle: FlexStyle = {
 // --- Core node ----------------------------------------------
 abstract class FlexNode {
   id?: string
+  metadata?: unknown
   /** Computed layout values */
   public readonly size: Size = { width: 0, height: 0 }
   public readonly position: Position = { x: 0, y: 0 }
@@ -40,6 +41,7 @@ abstract class FlexNode {
   constructor(style: Partial<FlexStyle> = {}) {
     this.style = { ...defaultStyle, ...style }
     this.id = style.id
+    this.metadata = style.metadata
   }
 
   /** Recursively lay out the subtree. */
