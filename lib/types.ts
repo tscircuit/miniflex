@@ -29,6 +29,8 @@ export interface FlexStyle {
   width?: number
   /** Explicit height for the item. Typically used for cross-axis sizing or fixed-size main axis. */
   height?: number
+  /** Optional metadata that can be attached to any flex item. */
+  metadata?: unknown
 }
 
 // --- Flex container -----------------------------------------

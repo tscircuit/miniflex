@@ -31,6 +31,7 @@ const defaultStyle: FlexStyle = {
 // --- Core node ----------------------------------------------
 abstract class FlexNode {
   id?: string
+  metadata?: unknown
   /** Computed layout values */
   public readonly size: Size = { width: 0, height: 0 }
   public readonly position: Position = { x: 0, y: 0 }
@@ -40,6 +41,7 @@ abstract class FlexNode {
   constructor(style: Partial<FlexStyle> = {}) {
     this.style = { ...defaultStyle, ...style }
     this.id = style.id
+    this.metadata = style.metadata
   }
 
   /** Recursively lay out the subtree. */
@@ -249,6 +251,17 @@ export class FlexBox extends FlexNode {
     }
   }
 }
+
+// Export types for external use
+export type {
+  FlexStyle,
+  Size,
+  Position,
+  Direction,
+  Justify,
+  Align,
+  FlexBoxOptions,
+} from "./types"
 
 // Root container (same as FlexBox but semantically distinct)
 export class RootFlexBox extends FlexBox {

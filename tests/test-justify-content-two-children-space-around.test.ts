@@ -27,12 +27,12 @@ it(`should correctly layout two children with ${justify}`, () => {
   root.build()
 
   expect(child1.size.width).toBe(child1Basis)
-  expect(child1.position.x).toBeCloseTo(expectedPositions[0].x)
-  expect(child1.position.y).toBeCloseTo(expectedPositions[0].y)
+  expect(child1.position.x).toBeCloseTo(expectedPositions[0]!.x)
+  expect(child1.position.y).toBeCloseTo(expectedPositions[0]!.y)
 
   expect(child2.size.width).toBe(child2Basis)
-  expect(child2.position.x).toBeCloseTo(expectedPositions[1].x)
-  expect(child2.position.y).toBeCloseTo(expectedPositions[1].y)
+  expect(child2.position.x).toBeCloseTo(expectedPositions[1]!.x)
+  expect(child2.position.y).toBeCloseTo(expectedPositions[1]!.y)
 
   expect(
     convertFlexBoxToSvg(root, { title: `Two Children, justify: ${justify}` }),
