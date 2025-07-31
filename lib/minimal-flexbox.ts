@@ -252,6 +252,9 @@ export class FlexBox extends FlexNode {
   }
 }
 
+// Export types for external use
+export type { FlexStyle, Size, Position, Direction, Justify, Align, FlexBoxOptions } from "./types"
+
 // Root container (same as FlexBox but semantically distinct)
 export class RootFlexBox extends FlexBox {
   constructor(width: number, height: number, opts: FlexBoxOptions = {}) {
