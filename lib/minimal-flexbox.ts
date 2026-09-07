@@ -125,7 +125,8 @@ export class FlexBox extends FlexNode {
       let main = child.style.flexBasis
 
       if (freeSpace > 0 && totalGrow > 0) {
-        main += (freeSpace * child.style.flexGrow) / totalGrow
+        // Factors totaling less than one request only part of the free space.
+        main += (freeSpace * child.style.flexGrow) / Math.max(1, totalGrow)
       } else if (freeSpace < 0 && totalShrink > 0) {
         main += (freeSpace * child.style.flexShrink) / totalShrink
         if (main < 0) main = 0
