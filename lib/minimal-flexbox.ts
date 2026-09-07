@@ -28,6 +28,17 @@ const defaultStyle: FlexStyle = {
   height: undefined,
 }
 
+function withDefaultStyle(style: Partial<FlexStyle> = {}): FlexStyle {
+  return {
+    ...defaultStyle,
+    ...style,
+    flexGrow: style.flexGrow ?? defaultStyle.flexGrow,
+    flexShrink: style.flexShrink ?? defaultStyle.flexShrink,
+    flexBasis: style.flexBasis ?? defaultStyle.flexBasis,
+    alignSelf: style.alignSelf ?? defaultStyle.alignSelf,
+  }
+}
+
 // --- Core node ----------------------------------------------
 abstract class FlexNode {
   id?: string
@@ -39,7 +50,7 @@ abstract class FlexNode {
   public style: FlexStyle
 
   constructor(style: Partial<FlexStyle> = {}) {
-    this.style = { ...defaultStyle, ...style }
+    this.style = withDefaultStyle(style)
     this.id = style.id
     this.metadata = style.metadata
   }
@@ -85,7 +96,7 @@ export class FlexBox extends FlexNode {
   addChild(arg1: any, arg2?: any): any {
     if (arg1 instanceof FlexBox) {
       const box = arg1 as FlexBox
-      if (arg2) box.style = { ...defaultStyle, ...arg2 }
+      if (arg2) box.style = withDefaultStyle(arg2)
       this.children.push(box)
       return box
     }
