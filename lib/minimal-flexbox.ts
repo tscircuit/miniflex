@@ -163,7 +163,19 @@ export class FlexBox extends FlexNode {
     let between = mainGap
     const n = this.children.length
 
-    switch (this.justifyContent) {
+    // Distributed alignment falls back to flex-start on overflow, keeping
+    // the fixed gap instead of distributing negative space between items.
+    let justify = this.justifyContent
+    if (
+      remaining < 0 &&
+      (justify === "space-between" ||
+        justify === "space-around" ||
+        justify === "space-evenly")
+    ) {
+      justify = "flex-start"
+    }
+
+    switch (justify) {
       case "flex-start":
         break // defaults are fine
       case "flex-end":
