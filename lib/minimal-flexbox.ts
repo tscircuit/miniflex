@@ -55,6 +55,45 @@ export class FlexElement extends FlexNode {
   }
 }
 
+function shrinkMainSizes(
+  children: readonly FlexNode[],
+  mainProp: keyof Size,
+  initialFreeSpace: number,
+): void {
+  let active = children.filter((child) => child.style.flexShrink > 0)
+  let remainingFreeSpace = initialFreeSpace
+
+  while (active.length > 0) {
+    const totalFactor = active.reduce((sum, c) => sum + c.style.flexShrink, 0)
+    const totalScaledFactor = active.reduce(
+      (sum, c) => sum + c.style.flexShrink * c.style.flexBasis,
+      0,
+    )
+    if (totalScaledFactor === 0) return
+
+    // Factors summing to less than one request only part of the initial deficit.
+    const freeSpace = Math.max(
+      remainingFreeSpace,
+      initialFreeSpace * Math.min(1, totalFactor),
+    )
+    const unfrozen: FlexNode[] = []
+    for (const child of active) {
+      const { flexBasis, flexShrink } = child.style
+      const size =
+        flexBasis + (freeSpace * flexShrink * flexBasis) / totalScaledFactor
+      child.size[mainProp] = Math.max(0, size)
+      if (size < 0) {
+        // Freeze at zero and redistribute the remaining deficit on the next pass.
+        remainingFreeSpace += flexBasis
+      } else {
+        unfrozen.push(child)
+      }
+    }
+    if (unfrozen.length === active.length) return
+    active = unfrozen
+  }
+}
+
 export class FlexBox extends FlexNode {
   public readonly children: FlexNode[] = []
 
@@ -110,12 +149,10 @@ export class FlexBox extends FlexNode {
 
     let totalBasis = 0
     let totalGrow = 0
-    let totalShrink = 0
 
     for (const child of this.children) {
       totalBasis += child.style.flexBasis
       totalGrow += child.style.flexGrow
-      totalShrink += child.style.flexShrink
     }
 
     const freeSpace = containerMain - totalBasis - gapTotal
@@ -126,9 +163,6 @@ export class FlexBox extends FlexNode {
 
       if (freeSpace > 0 && totalGrow > 0) {
         main += (freeSpace * child.style.flexGrow) / totalGrow
-      } else if (freeSpace < 0 && totalShrink > 0) {
-        main += (freeSpace * child.style.flexShrink) / totalShrink
-        if (main < 0) main = 0
       }
 
       child.size[mainProp] = main
@@ -152,6 +186,10 @@ export class FlexBox extends FlexNode {
         // Its cross size is not changed by alignment; it remains its current value
         // (e.g., 0 for a FlexElement, or the defined size for a nested FlexBox).
       }
+    }
+
+    if (freeSpace < 0) {
+      shrinkMainSizes(this.children, mainProp, freeSpace)
     }
 
     // 4. Justify content (main‑axis positioning) -------------------------------
