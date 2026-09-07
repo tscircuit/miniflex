@@ -110,12 +110,10 @@ export class FlexBox extends FlexNode {
 
     let totalBasis = 0
     let totalGrow = 0
-    let totalShrink = 0
 
     for (const child of this.children) {
       totalBasis += child.style.flexBasis
       totalGrow += child.style.flexGrow
-      totalShrink += child.style.flexShrink
     }
 
     const freeSpace = containerMain - totalBasis - gapTotal
@@ -126,9 +124,6 @@ export class FlexBox extends FlexNode {
 
       if (freeSpace > 0 && totalGrow > 0) {
         main += (freeSpace * child.style.flexGrow) / totalGrow
-      } else if (freeSpace < 0 && totalShrink > 0) {
-        main += (freeSpace * child.style.flexShrink) / totalShrink
-        if (main < 0) main = 0
       }
 
       child.size[mainProp] = main
@@ -151,6 +146,46 @@ export class FlexBox extends FlexNode {
         // Item is not stretched and has no explicit cross size.
         // Its cross size is not changed by alignment; it remains its current value
         // (e.g., 0 for a FlexElement, or the defined size for a nested FlexBox).
+      }
+    }
+
+    if (freeSpace < 0) {
+      // CSS flex shrink is weighted by the original basis, not just the factor.
+      // Freeze zero-clamped items and redistribute their unused reduction.
+      const unfrozen = new Set(
+        this.children.filter((child) => child.style.flexShrink > 0),
+      )
+      while (unfrozen.size > 0) {
+        let occupiedBasis = gapTotal
+        let shrinkSum = 0
+        let scaledShrinkSum = 0
+        for (const child of this.children) {
+          if (unfrozen.has(child)) {
+            occupiedBasis += child.style.flexBasis
+            shrinkSum += child.style.flexShrink
+            scaledShrinkSum += child.style.flexShrink * child.style.flexBasis
+          } else {
+            occupiedBasis += child.size[mainProp]
+          }
+        }
+        if (scaledShrinkSum === 0) break
+        const reduction = Math.min(
+          Math.max(0, occupiedBasis - containerMain),
+          -freeSpace * Math.min(1, shrinkSum),
+        )
+        let clamped = false
+        for (const child of unfrozen) {
+          const size =
+            child.style.flexBasis -
+            (reduction * child.style.flexShrink * child.style.flexBasis) /
+              scaledShrinkSum
+          child.size[mainProp] = Math.max(0, size)
+          if (size < 0) {
+            unfrozen.delete(child)
+            clamped = true
+          }
+        }
+        if (!clamped) break
       }
     }
 
