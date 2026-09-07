@@ -272,20 +272,41 @@ export class RootFlexBox extends FlexBox {
   getLayout(): Record<string, { position: Position; size: Size }> {
     this.build()
     const layoutMap: Record<string, { position: Position; size: Size }> = {}
-    this._collectLayout(this, layoutMap)
+    // Reserve explicit IDs across the whole tree before generating any keys.
+    const reservedIds = new Set<string>()
+    const reserveIds = (box: FlexBox): void => {
+      for (const child of box.children) {
+        if (child.id !== undefined) reservedIds.add(child.id)
+        if (child instanceof FlexBox) reserveIds(child)
+      }
+    }
+    reserveIds(this)
+    this._collectLayout(this, layoutMap, reservedIds)
     return layoutMap
   }
 
   private _collectLayout(
     box: FlexBox,
     map: Record<string, { position: Position; size: Size }>,
+    reservedIds: Set<string>,
     counterRef = { counter: 0 },
   ): void {
     for (const child of box.children) {
-      const id = child.id ?? `_$$${counterRef.counter++}`
-      map[id] = { position: child.position, size: child.size }
+      let id = child.id
+      if (id === undefined) {
+        do {
+          id = `_$$${counterRef.counter++}`
+        } while (reservedIds.has(id))
+      }
+      // Defining a data property also supports the literal ID "__proto__".
+      Object.defineProperty(map, id, {
+        value: { position: child.position, size: child.size },
+        enumerable: true,
+        configurable: true,
+        writable: true,
+      })
       if (child instanceof FlexBox) {
-        this._collectLayout(child, map, counterRef)
+        this._collectLayout(child, map, reservedIds, counterRef)
       }
     }
   }
