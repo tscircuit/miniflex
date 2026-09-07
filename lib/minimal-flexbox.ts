@@ -85,7 +85,11 @@ export class FlexBox extends FlexNode {
   addChild(arg1: any, arg2?: any): any {
     if (arg1 instanceof FlexBox) {
       const box = arg1 as FlexBox
-      if (arg2) box.style = { ...defaultStyle, ...arg2 }
+      if (arg2) {
+        box.style = { ...defaultStyle, ...arg2 }
+        if (arg2.id !== undefined) box.id = arg2.id
+        if (arg2.metadata !== undefined) box.metadata = arg2.metadata
+      }
       this.children.push(box)
       return box
     }
