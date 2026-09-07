@@ -1,28 +1,28 @@
 <svg width="640" height="640" viewBox="0 0 640 640" xmlns="http://www.w3.org/2000/svg">
   <rect width="100%" height="100%" fill="white" />
   <g>
-    <polyline data-points="0,0 500,0 500,300 0,300 0,0" data-type="line" data-label="" points="40,488 600,488 600,151.99999999999994 40,151.99999999999994 40,488" fill="none" stroke="black" stroke-width="1.12" />
+    <polyline data-points="0,0 500,0 500,300 0,300 0,0" data-type="line" data-label="" points="40,487.1641791044776 597.2139303482587,487.1641791044776 597.2139303482587,152.83582089552237 40,152.83582089552237 40,487.1641791044776" fill="none" stroke="black" stroke-width="1.1144278606965174" />
   </g>
   <g>
-    <rect data-type="rect" data-label="childA" data-x="115" data-y="50" x="40" y="376" width="257.6" height="112" fill="rgba(0,0,0,0.1)" stroke="black" stroke-width="0.8928571428571428" /><text x="45" y="371" font-family="sans-serif" font-size="12" fill="black">childA</text>
+    <rect data-type="rect" data-label="childA" data-x="115" data-y="50" x="40" y="375.7213930348259" width="256.318407960199" height="111.44278606965173" fill="rgba(0,0,0,0.1)" stroke="black" stroke-width="0.8973214285714285" /><text x="45" y="370.7213930348259" font-family="sans-serif" font-size="12" fill="black">childA</text>
   </g>
   <g>
-    <rect data-type="rect" data-label="gcA1" data-x="115" data-y="25" x="140.8" y="432" width="56" height="56" fill="rgba(255,0,0,0.1)" stroke="black" stroke-width="0.8928571428571428" /><text x="145.8" y="427" font-family="sans-serif" font-size="12" fill="black">gcA1</text>
+    <rect data-type="rect" data-label="gcA1" data-x="115" data-y="25" x="140.2985074626866" y="431.44278606965173" width="55.721393034825866" height="55.721393034825894" fill="rgba(255,0,0,0.1)" stroke="black" stroke-width="0.8973214285714285" /><text x="145.2985074626866" y="426.44278606965173" font-family="sans-serif" font-size="12" fill="black">gcA1</text>
   </g>
   <g>
-    <rect data-type="rect" data-label="gcA2" data-x="115" data-y="77.5" x="152" y="376" width="33.60000000000002" height="50.39999999999998" fill="rgba(0,255,0,0.1)" stroke="black" stroke-width="0.8928571428571428" /><text x="157" y="371" font-family="sans-serif" font-size="12" fill="black">gcA2</text>
+    <rect data-type="rect" data-label="gcA2" data-x="115" data-y="77.5" x="151.44278606965173" y="375.7213930348259" width="33.43283582089555" height="50.149253731343265" fill="rgba(0,255,0,0.1)" stroke="black" stroke-width="0.8973214285714285" /><text x="156.44278606965173" y="370.7213930348259" font-family="sans-serif" font-size="12" fill="black">gcA2</text>
   </g>
   <g>
-    <rect data-type="rect" data-label="childB" data-x="290" data-y="150" x="308.8" y="151.99999999999994" width="112" height="336.00000000000006" fill="rgba(0,0,255,0.1)" stroke="black" stroke-width="0.8928571428571428" /><text x="313.8" y="146.99999999999994" font-family="sans-serif" font-size="12" fill="black">childB</text>
+    <rect data-type="rect" data-label="childB" data-x="290" data-y="150" x="307.4626865671642" y="152.83582089552237" width="111.44278606965173" height="334.32835820895525" fill="rgba(0,0,255,0.1)" stroke="black" stroke-width="0.8973214285714285" /><text x="312.4626865671642" y="147.83582089552237" font-family="sans-serif" font-size="12" fill="black">childB</text>
   </g>
   <g>
-    <rect data-type="rect" data-label="childC" data-x="425" data-y="150" x="432.00000000000006" y="151.99999999999994" width="167.99999999999994" height="336.00000000000006" fill="rgba(255,255,0,0.1)" stroke="black" stroke-width="0.8928571428571428" /><text x="437.00000000000006" y="146.99999999999994" font-family="sans-serif" font-size="12" fill="black">childC</text>
+    <rect data-type="rect" data-label="childC" data-x="425" data-y="150" x="430.0497512437811" y="152.83582089552237" width="167.16417910447763" height="334.32835820895525" fill="rgba(255,255,0,0.1)" stroke="black" stroke-width="0.8973214285714285" /><text x="435.0497512437811" y="147.83582089552237" font-family="sans-serif" font-size="12" fill="black">childC</text>
   </g>
   <g>
-    <rect data-type="rect" data-label="gcC1" data-x="12.5" data-y="290" x="42.8" y="151.99999999999994" width="22.400000000000006" height="22.400000000000034" fill="rgba(255,0,255,0.1)" stroke="black" stroke-width="0.8928571428571428" /><text x="47.8" y="146.99999999999994" font-family="sans-serif" font-size="12" fill="black">gcC1</text>
+    <rect data-type="rect" data-label="gcC1" data-x="362.5" data-y="290" x="432.8358208955224" y="152.83582089552237" width="22.288557213930346" height="22.288557213930346" fill="rgba(255,0,255,0.1)" stroke="black" stroke-width="0.8973214285714285" /><text x="437.8358208955224" y="147.83582089552237" font-family="sans-serif" font-size="12" fill="black">gcC1</text>
   </g>
   <g>
-    <rect data-type="rect" data-label="gcC2" data-x="90" data-y="285" x="70.80000000000001" y="151.99999999999994" width="140" height="33.60000000000002" fill="rgba(0,255,255,0.1)" stroke="black" stroke-width="0.8928571428571428" /><text x="75.80000000000001" y="146.99999999999994" font-family="sans-serif" font-size="12" fill="black">gcC2</text>
+    <rect data-type="rect" data-label="gcC2" data-x="440" data-y="285" x="460.69651741293535" y="152.83582089552237" width="139.30348258706465" height="33.43283582089555" fill="rgba(0,255,255,0.1)" stroke="black" stroke-width="0.8973214285714285" /><text x="465.69651741293535" y="147.83582089552237" font-family="sans-serif" font-size="12" fill="black">gcC2</text>
   </g>
   <g id="crosshair" style="display: none">
     <line id="crosshair-h" y1="0" y2="640" stroke="#666" stroke-width="0.5" />
@@ -52,12 +52,12 @@
 
       // Calculate real coordinates using inverse transformation
       const matrix = {
-        "a": 1.12,
+        "a": 1.1144278606965174,
         "c": 0,
         "e": 40,
         "b": 0,
-        "d": -1.12,
-        "f": 488
+        "d": -1.1144278606965174,
+        "f": 487.1641791044776
       };
       // Manually invert and apply the affine transform
       // Since we only use translate and scale, we can directly compute:

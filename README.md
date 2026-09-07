@@ -131,7 +131,7 @@ Computes the layout for the `FlexBox` and all its children. This must be called 
 
 ### `flexNode.position: Position`
 
-After `build()`, contains the `{ x, y }` coordinates of the node.
+After `build()`, contains the `{ x, y }` coordinates of the node relative to its parent container.
 
 ### `flexNode.size: Size`
 
@@ -140,6 +140,8 @@ After `build()`, contains the `{ width, height }` of the node.
 ### `rootFlexBox.getLayout(): Record<string, { position: Position; size: Size }>`
 
 After `build()`, returns a map where keys are item IDs (or auto-generated IDs) and values are their computed `position` and `size`.
+
+Positions in this flat map are relative to the root container, including all ancestor offsets for nested items. The nodes' own `position` objects remain relative to their immediate parents.
 
 ### `flexBoxLayout(parent: FlexBoxItem): Record<string, { position: Position; size: Size }>`
 
