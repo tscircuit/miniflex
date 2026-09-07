@@ -9,20 +9,19 @@ import type {
   FlexBoxOptions,
 } from "./types"
 
-export interface FlexBoxItem extends FlexStyle {
+export interface FlexBoxItem extends FlexStyle, FlexBoxOptions {
   children?: FlexBoxItem[]
 }
 
 // Helper to extract FlexBoxOptions from a FlexBoxItem, with defaults.
-// Assumes properties like 'direction' might exist on item dynamically.
 function _getFlexBoxOptions(item: FlexBoxItem): FlexBoxOptions {
   const opts: FlexBoxOptions = { id: item.id }
   // Provide defaults from FlexBox class if properties are not on item
-  opts.direction = (item as any).direction ?? "row"
-  opts.columnGap = (item as any).columnGap ?? 0
-  opts.rowGap = (item as any).rowGap ?? 0
-  opts.justifyContent = (item as any).justifyContent ?? "flex-start"
-  opts.alignItems = (item as any).alignItems ?? "stretch"
+  opts.direction = item.direction ?? "row"
+  opts.columnGap = item.columnGap ?? 0
+  opts.rowGap = item.rowGap ?? 0
+  opts.justifyContent = item.justifyContent ?? "flex-start"
+  opts.alignItems = item.alignItems ?? "stretch"
   return opts
 }
 

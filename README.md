@@ -149,17 +149,11 @@ A utility function that takes a tree of `FlexBoxItem` objects, constructs the co
 
 #### `FlexBoxItem` Interface
 
-The `flexBoxLayout` function uses objects conforming to the `FlexBoxItem` interface. This interface extends `FlexStyle` and adds an optional `children` array. Additionally, properties typically found in `FlexBoxOptions` (like `direction`, `columnGap`, `rowGap`, `justifyContent`, `alignItems`) can be included directly on a `FlexBoxItem` if it represents a flex container (i.e., it has `children`).
+The `flexBoxLayout` function uses objects conforming to the `FlexBoxItem` interface. This interface extends `FlexStyle` and `FlexBoxOptions` and adds an optional `children` array. Container properties such as `direction`, `columnGap`, `rowGap`, `justifyContent`, and `alignItems` can be included directly on the root and nested containers.
 
 ```typescript
-interface FlexBoxItem extends FlexStyle {
+interface FlexBoxItem extends FlexStyle, FlexBoxOptions {
   children?: FlexBoxItem[];
-  // Plus, optionally, FlexBoxOptions if it's a container:
-  // direction?: Direction;
-  // columnGap?: number;
-  // rowGap?: number;
-  // justifyContent?: Justify;
-  // alignItems?: Align;
 }
 ```
 
@@ -172,6 +166,9 @@ const layoutDefinition: FlexBoxItem = {
   id: "root",
   width: 300,
   height: 200,
+  flexGrow: 0,
+  flexShrink: 1,
+  flexBasis: 0,
   direction: "column", // FlexBoxOption for the root container
   alignItems: "stretch",
   rowGap: 10,
@@ -179,18 +176,22 @@ const layoutDefinition: FlexBoxItem = {
     {
       id: "child1",
       flexGrow: 1, // FlexStyle for child1
+      flexShrink: 1,
+      flexBasis: 0,
       // This child is also a container
       direction: "row", // FlexBoxOption for child1 container
       columnGap: 5,
       alignItems: "center",
       children: [
-        { id: "grandchildA", flexBasis: 50, height: 30 }, // FlexStyle for grandchildA
-        { id: "grandchildB", flexGrow: 1, height: 40 },   // FlexStyle for grandchildB
+        { id: "grandchildA", flexBasis: 50, flexGrow: 0, flexShrink: 1, height: 30 },
+        { id: "grandchildB", flexBasis: 0, flexGrow: 1, flexShrink: 1, height: 40 },
       ],
     },
     {
       id: "child2",
       flexBasis: 50, // FlexStyle for child2 (leaf item)
+      flexGrow: 0,
+      flexShrink: 1,
     },
   ],
 };
