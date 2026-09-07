@@ -177,11 +177,11 @@ export class FlexBox extends FlexNode {
         break
       case "space-around":
         between = mainGap + remaining / n
-        leading = between / 2
+        leading = remaining / (2 * n)
         break
       case "space-evenly":
         between = mainGap + remaining / (n + 1)
-        leading = between
+        leading = remaining / (n + 1)
         break
     }
 

@@ -19,10 +19,10 @@
     <rect data-type="rect" data-label="childC" data-x="425" data-y="150" x="432.00000000000006" y="151.99999999999994" width="167.99999999999994" height="336.00000000000006" fill="rgba(255,255,0,0.1)" stroke="black" stroke-width="0.8928571428571428" /><text x="437.00000000000006" y="146.99999999999994" font-family="sans-serif" font-size="12" fill="black">childC</text>
   </g>
   <g>
-    <rect data-type="rect" data-label="gcC1" data-x="12.5" data-y="290" x="42.8" y="151.99999999999994" width="22.400000000000006" height="22.400000000000034" fill="rgba(255,0,255,0.1)" stroke="black" stroke-width="0.8928571428571428" /><text x="47.8" y="146.99999999999994" font-family="sans-serif" font-size="12" fill="black">gcC1</text>
+    <rect data-type="rect" data-label="gcC1" data-x="10" data-y="290" x="40" y="151.99999999999994" width="22.400000000000006" height="22.400000000000034" fill="rgba(255,0,255,0.1)" stroke="black" stroke-width="0.8928571428571428" /><text x="45" y="146.99999999999994" font-family="sans-serif" font-size="12" fill="black">gcC1</text>
   </g>
   <g>
-    <rect data-type="rect" data-label="gcC2" data-x="90" data-y="285" x="70.80000000000001" y="151.99999999999994" width="140" height="33.60000000000002" fill="rgba(0,255,255,0.1)" stroke="black" stroke-width="0.8928571428571428" /><text x="75.80000000000001" y="146.99999999999994" font-family="sans-serif" font-size="12" fill="black">gcC2</text>
+    <rect data-type="rect" data-label="gcC2" data-x="87.5" data-y="285" x="68" y="151.99999999999994" width="140.00000000000003" height="33.60000000000002" fill="rgba(0,255,255,0.1)" stroke="black" stroke-width="0.8928571428571428" /><text x="73" y="146.99999999999994" font-family="sans-serif" font-size="12" fill="black">gcC2</text>
   </g>
   <g id="crosshair" style="display: none">
     <line id="crosshair-h" y1="0" y2="640" stroke="#666" stroke-width="0.5" />
