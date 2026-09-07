@@ -272,20 +272,31 @@ export class RootFlexBox extends FlexBox {
   getLayout(): Record<string, { position: Position; size: Size }> {
     this.build()
     const layoutMap: Record<string, { position: Position; size: Size }> = {}
-    this._collectLayout(this, layoutMap)
+    this._collectLayout(this, { map: layoutMap })
     return layoutMap
   }
 
   private _collectLayout(
     box: FlexBox,
-    map: Record<string, { position: Position; size: Size }>,
-    counterRef = { counter: 0 },
+    {
+      map,
+      counterRef = { counter: 0 },
+      offset = { x: 0, y: 0 },
+    }: {
+      map: Record<string, { position: Position; size: Size }>
+      counterRef?: { counter: number }
+      offset?: Position
+    },
   ): void {
     for (const child of box.children) {
       const id = child.id ?? `_$$${counterRef.counter++}`
-      map[id] = { position: child.position, size: child.size }
+      const position = {
+        x: offset.x + child.position.x,
+        y: offset.y + child.position.y,
+      }
+      map[id] = { position, size: child.size }
       if (child instanceof FlexBox) {
-        this._collectLayout(child, map, counterRef)
+        this._collectLayout(child, { map, counterRef, offset: position })
       }
     }
   }
