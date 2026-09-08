@@ -147,6 +147,10 @@ export class FlexBox extends FlexNode {
         child.size[crossProp] = explicitCrossSize
       } else if (alignSelf === "stretch") {
         child.size[crossProp] = containerCross
+      } else if (child instanceof FlexElement) {
+        // Leaves have no intrinsic cross size. Do not reuse a size computed
+        // by a previous build with explicit sizing or stretch alignment.
+        child.size[crossProp] = 0
       } else {
         // Item is not stretched and has no explicit cross size.
         // Its cross size is not changed by alignment; it remains its current value
