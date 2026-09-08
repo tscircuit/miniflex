@@ -80,9 +80,9 @@ export class FlexBox extends FlexNode {
    * addChild(style?) → FlexElement        (leaf)
    * addChild(childBox, style?) → FlexBox  (nest another container)
    */
-  addChild(style: Partial<FlexStyle>): FlexElement
+  addChild(style?: Partial<FlexStyle>): FlexElement
   addChild(box: FlexBox, style?: Partial<FlexStyle>): FlexBox
-  addChild(arg1: any, arg2?: any): any {
+  addChild(arg1?: any, arg2?: any): any {
     if (arg1 instanceof FlexBox) {
       const box = arg1 as FlexBox
       if (arg2) box.style = { ...defaultStyle, ...arg2 }
