@@ -186,12 +186,9 @@ export class FlexBox extends FlexNode {
     }
 
     // 5. Position children ------------------------------------------------------
-    const ordered = this.direction.endsWith("reverse")
-      ? [...this.children].reverse()
-      : this.children
     let cursor = leading
 
-    for (const child of ordered) {
+    for (const child of this.children) {
       if (horizontal) {
         child.position.x =
           this.direction === "row"
