@@ -72,7 +72,12 @@ export class FlexBox extends FlexNode {
     this.size.width = width
     this.size.height = height
     this.id = opts.id
-    Object.assign(this, opts)
+    Object.assign(
+      this,
+      Object.fromEntries(
+        Object.entries(opts).filter(([, value]) => value !== undefined),
+      ),
+    )
   }
 
   // --------------- Building the tree -----------------------
