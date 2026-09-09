@@ -205,6 +205,25 @@ for (const id in layoutMap) {
 }
 ```
 
+### `getMinimumFlexContainer(children, options?)`
+
+Estimates the smallest container for children with explicit `width` and `height` values. Children are stacked using `direction` (default: `"row"`), with `columnGap` applied to row directions and `rowGap` applied to column directions.
+
+This is a lightweight estimate, not a full flex sizing pass: it does not apply `flexGrow`, `flexShrink`, or `flexBasis`.
+
+```typescript
+import { getMinimumFlexContainer } from "@tscircuit/miniflex"
+
+const size = getMinimumFlexContainer(
+  [
+    { width: 10, height: 5 },
+    { width: 20, height: 7 },
+  ],
+  { direction: "row", columnGap: 4 },
+)
+// { width: 34, height: 7 }
+```
+
 ## Building the Project
 
 To build the TypeScript source to JavaScript:
